@@ -79,7 +79,6 @@ if __name__ == "__main__":
     plt.scatter(X[:50, 0], X[:50, 1], color = 'red', marker = 'o', label = 'setosa')
     plt.scatter(X[50:100, 0], X[50:100, 1], color='blue', marker='x', label='versicolor')
     plt.legend(loc = 'upper left')
-    plt.show()
     Classifier = Perceptron()
     Classifier.fit(X, y)
     #plt.plot(Classifier.errors)
