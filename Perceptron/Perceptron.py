@@ -70,6 +70,13 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
     plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)
     plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
+    
+    #plot class samples
+    for idx, cl in enumerate(np.unique(y)):
+        filter = (y.ravel() == cl)
+        plt.scatter(x=X[filter, 0], y = X[filter, 1],
+                    alpha = 0.8, c = cmap(idx),
+                    marker = markers[idx], label = cl)
 
 if __name__ == "__main__":
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
