@@ -34,15 +34,15 @@ class Perceptron(object):
         :param y: Target values, shape = [n_samples]
         :return: self
         """
-        self.w_ = np.zeros((X.shape[1] + 1, 1))
-        self.errors = np.zeros((self.n_iter, 1))
+        self.w_ = np.zeros(X.shape[1] + 1)
+        self.errors = np.zeros(self.n_iter)
         X = np.insert(X, 0, 1, 1) #Insert x0
         for i in range(self.n_iter):
             output = self.net_input(X)
             error = output - y
             update = self.eta * error
             self.w_ -= np.dot(X.T, update)
-            self.errors[i] = np.dot(error.T, error) / 2
+            self.errors[i] = np.dot(error, error) / 2
         return self
 
     def net_input(self, X):
@@ -55,6 +55,7 @@ class Perceptron(object):
     def normalize(self, X):
         X = (X-X.mean(0))/X.std(0)
         return X
+
 
 def plot_decision_regions(X, y, classifier, resolution=0.02):
     markers = ('s', 'o', 'x', 'v')
@@ -81,7 +82,7 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
 if __name__ == "__main__":
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
     y = df.iloc[0:100, 4].values
-    y = np.where(y == 'Iris-setosa', -1, 1).reshape(y.shape[0], 1)
+    y = np.where(y == 'Iris-setosa', -1, 1)
     X = df.iloc[0:100, [0, 2]].values
     Classifier = Perceptron(0.001, 100)
     X_std = Classifier.normalize(X)

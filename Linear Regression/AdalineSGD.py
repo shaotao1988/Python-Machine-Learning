@@ -126,7 +126,7 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
 if __name__ == "__main__":
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
     y = df.iloc[0:100, 4].values
-    y = np.where(y == 'Iris-setosa', -1, 1).reshape(y.shape[0], 1)
+    y = np.where(y == 'Iris-setosa', -1, 1)
     X = df.iloc[0:100, [0, 2]].values
     Classifier = AdalineSGD(0.01, 10, random_state=1)
     X_std = Classifier.normalize(X)
