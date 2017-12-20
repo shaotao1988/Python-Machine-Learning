@@ -75,8 +75,8 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
     for idx, cl in enumerate(np.unique(y)):
         filter = (y.ravel() == cl)
         plt.scatter(x=X[filter, 0], y = X[filter, 1],
-                    alpha = 0.8, c = cmap(idx),
-                    marker = markers[idx], label = cl)
+                    alpha = 0.4, c = 'green',
+                    marker = 'o', label = cl)
 
 if __name__ == "__main__":
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
@@ -85,10 +85,12 @@ if __name__ == "__main__":
     X = df.iloc[0:100, [0, 2]].values
     Classifier = Perceptron(0.001, 100)
     X_std = Classifier.normalize(X)
-    plt.scatter(X_std[:50, 0], X_std[:50, 1], color='red', marker='o', label='setosa')
+    plt.scatter(X_std[:50, 0], X_std[:50, 1], color='red', marker='s', label='setosa')
     plt.scatter(X_std[50:100, 0], X_std[50:100, 1], color='blue', marker='x', label='versicolor')
     plt.legend(loc='upper left')
     Classifier.fit(X_std, y)
     Z = Classifier.predict(X_std)
     plot_decision_regions(X_std, y, classifier=Classifier)
+    plt.show()
+    plt.plot(Classifier.errors)
     plt.show()
